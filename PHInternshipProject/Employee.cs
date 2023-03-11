@@ -19,6 +19,7 @@ namespace PHInternshipProject
             InitializeComponent();
             ShowAllEmployee();
             ShowAllTasks();
+            ShowTOPEmployee();
 
         }
 
@@ -184,8 +185,8 @@ namespace PHInternshipProject
 
                         ResetЕmployeeData();
                         ShowAllEmployee();
-                        MessageBox.Show("Successful removal!"); 
-
+                        MessageBox.Show("Successful removal!");
+                        ShowTOPEmployee();
                     }
                 }
                 catch (Exception Ex)
@@ -224,6 +225,7 @@ namespace PHInternshipProject
 
                         ResetTaskData();
                         ShowAllTasks();
+                        ShowTOPEmployee();
                         MessageBox.Show("Successful removal!");
 
                     }
@@ -265,6 +267,7 @@ namespace PHInternshipProject
 
                     ResetЕmployeeData();
                     ShowAllEmployee();
+                    ShowTOPEmployee();
 
                     MessageBox.Show("You successfully added an empoloyee!", "Successful addition.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -304,6 +307,7 @@ namespace PHInternshipProject
 
                     ResetTaskData();
                     ShowAllTasks();
+                    ShowTOPEmployee();
 
                     MessageBox.Show("You successfully added task!", "Successful addition.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -345,6 +349,7 @@ namespace PHInternshipProject
 
                     ResetЕmployeeData();
                     ShowAllEmployee();
+                    ShowTOPEmployee();
 
                     MessageBox.Show("You successfully updated an empoloyee data!", "Successful update.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -386,6 +391,7 @@ namespace PHInternshipProject
 
                     ResetTaskData();
                     ShowAllTasks();
+                    ShowTOPEmployee();
 
                     MessageBox.Show("You successfully updated task data!", "Successful update.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -399,6 +405,18 @@ namespace PHInternshipProject
             }
         }
 
-        
+        public void ShowTOPEmployee(string searchQuery = "SELECT COUNT(assignee) as sum, assignee, first_name, last_name FROM employee inner join task on assignee=employee_ID WHERE datediff(now(),due_date)<=30 AND datediff(now(),due_date)>0 GROUP BY assignee ORDER BY COUNT(assignee) DESC LIMIT 5")
+        {
+            this.databaseConnection.Open();
+            da = new MySqlDataAdapter(searchQuery, databaseConnection);
+            MySqlCommandBuilder Builder = new MySqlCommandBuilder(da);
+            var ds = new DataSet();
+            da.Fill(ds);
+            emAndTaskView.DataSource = ds.Tables[0];
+            emAndTaskView.AutoResizeColumns();
+            emAndTaskView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            this.databaseConnection.Close();
+        }
+
     }
 }

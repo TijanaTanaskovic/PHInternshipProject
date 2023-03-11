@@ -30,7 +30,7 @@ namespace PHInternshipProject
         private void InitializeComponent()
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -64,50 +64,56 @@ namespace PHInternshipProject
             this.title = new System.Windows.Forms.TextBox();
             this.taskView = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label13 = new System.Windows.Forms.Label();
+            this.emAndTaskView = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.employeeView)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.taskView)).BeginInit();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.emAndTaskView)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(0, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1081, 700);
             this.tabControl1.TabIndex = 2;
             // 
-            // tabPage1
+            // tabPage3
             // 
-            this.tabPage1.Controls.Add(this.dateTimePicker1);
-            this.tabPage1.Controls.Add(this.label8);
-            this.tabPage1.Controls.Add(this.label7);
-            this.tabPage1.Controls.Add(this.label6);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.cancelEmployee);
-            this.tabPage1.Controls.Add(this.deleteEmployee);
-            this.tabPage1.Controls.Add(this.updateEmployee);
-            this.tabPage1.Controls.Add(this.addEmployee);
-            this.tabPage1.Controls.Add(this.monthlySalary);
-            this.tabPage1.Controls.Add(this.phoneNumber);
-            this.tabPage1.Controls.Add(this.email);
-            this.tabPage1.Controls.Add(this.lastName);
-            this.tabPage1.Controls.Add(this.firstName);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.employeeView);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1073, 667);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Employees";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage3.Controls.Add(this.dateTimePicker1);
+            this.tabPage3.Controls.Add(this.label8);
+            this.tabPage3.Controls.Add(this.label7);
+            this.tabPage3.Controls.Add(this.label6);
+            this.tabPage3.Controls.Add(this.label5);
+            this.tabPage3.Controls.Add(this.label4);
+            this.tabPage3.Controls.Add(this.label3);
+            this.tabPage3.Controls.Add(this.cancelEmployee);
+            this.tabPage3.Controls.Add(this.deleteEmployee);
+            this.tabPage3.Controls.Add(this.updateEmployee);
+            this.tabPage3.Controls.Add(this.addEmployee);
+            this.tabPage3.Controls.Add(this.monthlySalary);
+            this.tabPage3.Controls.Add(this.phoneNumber);
+            this.tabPage3.Controls.Add(this.email);
+            this.tabPage3.Controls.Add(this.lastName);
+            this.tabPage3.Controls.Add(this.firstName);
+            this.tabPage3.Controls.Add(this.label2);
+            this.tabPage3.Controls.Add(this.employeeView);
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1073, 667);
+            this.tabPage3.TabIndex = 0;
+            this.tabPage3.Text = "Employees";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // dateTimePicker1
             // 
@@ -445,7 +451,7 @@ namespace PHInternshipProject
             this.taskView.RowHeadersWidth = 51;
             this.taskView.RowTemplate.Height = 29;
             this.taskView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.taskView.Size = new System.Drawing.Size(1057, 188);
+            this.taskView.Size = new System.Drawing.Size(1057, 230);
             this.taskView.TabIndex = 1;
             this.taskView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.taskView_CellClick);
             // 
@@ -459,6 +465,39 @@ namespace PHInternshipProject
             this.label1.TabIndex = 0;
             this.label1.Text = "List of all the tasks";
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.label13);
+            this.tabPage1.Controls.Add(this.emAndTaskView);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1073, 667);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "EmployeesAndTasks";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label13.Location = new System.Drawing.Point(3, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(1027, 32);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "List of 5 employees who completed the largest number of tasks in the past month";
+            // 
+            // emAndTaskView
+            // 
+            this.emAndTaskView.BackgroundColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.emAndTaskView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.emAndTaskView.Location = new System.Drawing.Point(8, 39);
+            this.emAndTaskView.Name = "emAndTaskView";
+            this.emAndTaskView.RowHeadersWidth = 51;
+            this.emAndTaskView.RowTemplate.Height = 29;
+            this.emAndTaskView.Size = new System.Drawing.Size(1057, 230);
+            this.emAndTaskView.TabIndex = 0;
+            // 
             // Employee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -470,12 +509,15 @@ namespace PHInternshipProject
             this.Text = "PHCompany";
             this.Load += new System.EventHandler(this.Employee_Load);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.employeeView)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.taskView)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.emAndTaskView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -483,7 +525,6 @@ namespace PHInternshipProject
         #endregion
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView employeeView;
@@ -517,6 +558,10 @@ namespace PHInternshipProject
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.DataGridView emAndTaskView;
     }
 }
 
