@@ -198,7 +198,42 @@ namespace PHInternshipProject
 
         private void deleteTask_Click(object sender, EventArgs e)
         {
+            if (CheckTask() == true)
+            {
+                MessageBox.Show("Please, select the task you want to delete!", "Task removal failed.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
+                {
+                    if (IDTask == 0)
+                    {
+                        MessageBox.Show("Please, select the task you want to delete!", "Task removal failed.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        this.databaseConnection.Open();
 
+                        string query = "DELETE FROM task WHERE task_ID = @IDTask";
+                        cmd = new MySqlCommand(query, this.databaseConnection);
+                        cmd.Parameters.AddWithValue("@IDTask", IDTask);
+
+                        cmd.ExecuteNonQuery();
+
+                        this.databaseConnection.Close();
+
+                        ResetTaskData();
+                        ShowAllTasks();
+                        MessageBox.Show("Successful removal!");
+
+                    }
+                }
+                catch (Exception Ex)
+                {
+                    MessageBox.Show(Ex.Message);
+                    this.databaseConnection.Close();
+                }
+            }
         }
 
         private void addEmployee_Click(object sender, EventArgs e)
@@ -244,14 +279,48 @@ namespace PHInternshipProject
 
         private void addTask_Click(object sender, EventArgs e)
         {
+            if (CheckTask() == true)
+            {
+                MessageBox.Show("Please, enter all necessary data!", "Failed to add task.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
+                {
+                    this.databaseConnection.Open();
+                    // cathching the data and inserting it into the database
+                    string query = "INSERT INTO task(title, description, assignee, due_date) VALUES (@title, @description, @assignee, @due_date)";
+                    cmd = new MySqlCommand(query, this.databaseConnection);
 
+                    cmd.Parameters.AddWithValue("@title", title.Text);
+                    cmd.Parameters.AddWithValue("@description", description.Text);
+                    cmd.Parameters.AddWithValue("@assignee", assignee.Text);
+                    cmd.Parameters.AddWithValue("@due_date", dateTimePicker2.Value.Date);
+
+                    cmd.ExecuteNonQuery();
+
+
+                    this.databaseConnection.Close();
+
+                    ResetTaskData();
+                    ShowAllTasks();
+
+                    MessageBox.Show("You successfully added task!", "Successful addition.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+                catch (Exception Ex)
+                {
+                    MessageBox.Show(Ex.Message);
+                    this.databaseConnection.Close();
+                }
+            }
         }
 
         private void updateEmployee_Click(object sender, EventArgs e)
         {
             if (CheckEmployee() == true)
             {
-                MessageBox.Show("Please, enter all necessary data!", "Failed to update an employee data.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please, select the one you want to change or enter all necessary data!", "Failed to update an employee data.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -291,7 +360,43 @@ namespace PHInternshipProject
 
         private void updateTask_Click(object sender, EventArgs e)
         {
+            if (CheckTask() == true)
+            {
+                MessageBox.Show("Please, select the one you want to change or enter all necessary data!", "Failed to update task data.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
+                {
+                    this.databaseConnection.Open();
 
+                    string query = "UPDATE task SET title = @title, description = @description, assignee = @assignee, due_date = @due_date WHERE task_ID = @IDTask";
+                    cmd = new MySqlCommand(query, this.databaseConnection);
+
+                    cmd.Parameters.AddWithValue("@title", title.Text);
+                    cmd.Parameters.AddWithValue("@description", description.Text);
+                    cmd.Parameters.AddWithValue("@assignee", assignee.Text);
+                    cmd.Parameters.AddWithValue("@due_date", dateTimePicker2.Value.Date);
+                    cmd.Parameters.AddWithValue("@IDTask", IDTask);
+
+                    cmd.ExecuteNonQuery();
+
+
+                    this.databaseConnection.Close();
+
+                    ResetTaskData();
+                    ShowAllTasks();
+
+                    MessageBox.Show("You successfully updated task data!", "Successful update.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+                }
+                catch (Exception Ex)
+                {
+                    MessageBox.Show(Ex.Message);
+                    this.databaseConnection.Close();
+                }
+            }
         }
 
         
