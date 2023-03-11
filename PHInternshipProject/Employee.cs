@@ -69,7 +69,7 @@ namespace PHInternshipProject
             lastName.Text = "";
             email.Text = "";
             phoneNumber.Text = "";
-            dateOfBirth.Text = "";
+            dateTimePicker1.Text = "";
             monthlySalary.Text = "";
         }
 
@@ -79,7 +79,7 @@ namespace PHInternshipProject
             title.Text = "";
             description.Text = "";
             assignee.Text = "";
-            dueDate.Text = "";
+            dateTimePicker2.Text = "";
         }
       
         private void Employee_Load(object sender, EventArgs e)
@@ -87,39 +87,35 @@ namespace PHInternshipProject
 
         }
 
-        private void employeeView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void employeeView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            //if (employeeView.SelectedRows.Count > 0) {
+            //used because the cellcontentclick expected us to click on content in the cell and now we can click only
+            //on particular cell 
+            ResetЕmployeeData();
+            firstName.Text = employeeView.SelectedRows[0].Cells[1].Value.ToString();
+            lastName.Text = employeeView.SelectedRows[0].Cells[2].Value.ToString();
+            email.Text = employeeView.SelectedRows[0].Cells[3].Value.ToString();
+            phoneNumber.Text = employeeView.SelectedRows[0].Cells[4].Value.ToString();
+            dateTimePicker1.Text = employeeView.SelectedRows[0].Cells[5].Value.ToString();
+            monthlySalary.Text = employeeView.SelectedRows[0].Cells[6].Value.ToString();
 
-                ResetЕmployeeData();
-                firstName.Text = employeeView.SelectedRows[0].Cells[1].Value.ToString();
-                lastName.Text = employeeView.SelectedRows[0].Cells[2].Value.ToString();
-                email.Text = employeeView.SelectedRows[0].Cells[3].Value.ToString();
-                phoneNumber.Text = employeeView.SelectedRows[0].Cells[4].Value.ToString();
-                dateOfBirth.Text = employeeView.SelectedRows[0].Cells[5].Value.ToString();
-                monthlySalary.Text = employeeView.SelectedRows[0].Cells[6].Value.ToString();
-
-                if (firstName.Text == "")
-                {
-                    IDEmployee = 0;
-                }
-                else
-                {
-                    IDEmployee = Convert.ToInt32(employeeView.SelectedRows[0].Cells[0].Value.ToString());
-                }
-                //MessageBox.Show("ovo se koristi" + IDEmployee);
-            //}
-            
-
+            if (firstName.Text == "")
+            {
+                IDEmployee = 0;
+            }
+            else
+            {
+                IDEmployee = Convert.ToInt32(employeeView.SelectedRows[0].Cells[0].Value.ToString());
+            }
         }
 
-        private void taskView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void taskView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             ResetTaskData();
             title.Text = taskView.SelectedRows[0].Cells[1].Value.ToString();
             description.Text = taskView.SelectedRows[0].Cells[2].Value.ToString();
             assignee.Text = taskView.SelectedRows[0].Cells[3].Value.ToString();
-            dueDate.Text = taskView.SelectedRows[0].Cells[4].Value.ToString();
+            dateTimePicker2.Text = taskView.SelectedRows[0].Cells[4].Value.ToString();
 
             if (title.Text == "")
             {
@@ -140,5 +136,164 @@ namespace PHInternshipProject
         {
             ResetTaskData();
         }
+
+        bool CheckEmployee()
+        {
+            if (firstName.Text == "" || lastName.Text == "" || email.Text == "" || phoneNumber.Text == ""
+                || dateTimePicker1.Text == "" || monthlySalary.Text == "")
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        bool CheckTask()
+        {
+            if (title.Text == "" || description.Text == "" || assignee.Text == "" || dateTimePicker2.Text == "")
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        private void deleteEmployee_Click(object sender, EventArgs e)
+        {
+            if (CheckEmployee() == true)
+            {
+                MessageBox.Show("Please, select the employee you want to delete!", "Employee removal failed.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
+                {
+                    if (IDEmployee == 0)
+                    {
+                        MessageBox.Show("Please, select the employee you want to delete!", "Employee removal failed.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        this.databaseConnection.Open();
+
+                        string query = "DELETE FROM employee WHERE employee_ID = @IDEmployee";
+                        cmd = new MySqlCommand(query, this.databaseConnection);
+                        cmd.Parameters.AddWithValue("@IDEmployee", IDEmployee);
+
+                        cmd.ExecuteNonQuery();
+
+                        this.databaseConnection.Close();
+
+                        ResetЕmployeeData();
+                        ShowAllEmployee();
+                        MessageBox.Show("Successful removal!"); 
+
+                    }
+                }
+                catch (Exception Ex)
+                {
+                    MessageBox.Show(Ex.Message);
+                    this.databaseConnection.Close();
+                }
+            }
+        }
+
+        private void deleteTask_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addEmployee_Click(object sender, EventArgs e)
+        {
+            if (CheckEmployee() == true)
+            {
+                MessageBox.Show("Please, enter all necessary data!", "Failed to add an employee.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
+                {
+                    this.databaseConnection.Open();
+                    // cathching the data and inserting it into the database
+                    string query = "INSERT INTO employee(first_name, last_name, email, phone_number, date_of_birth, monthly_salary) VALUES (@first_name, @last_name, @email, @phone_number, @date_of_birth, @monthly_salary)";
+                    cmd = new MySqlCommand(query, this.databaseConnection);
+
+                    cmd.Parameters.AddWithValue("@first_name", firstName.Text);
+                    cmd.Parameters.AddWithValue("@last_name", lastName.Text);
+                    cmd.Parameters.AddWithValue("@email", email.Text);
+                    cmd.Parameters.AddWithValue("@phone_number", phoneNumber.Text);
+                    cmd.Parameters.AddWithValue("@date_of_birth", dateTimePicker1.Value.Date);
+                    cmd.Parameters.AddWithValue("@monthly_salary", monthlySalary.Text);
+
+                    cmd.ExecuteNonQuery();
+
+                    
+                    this.databaseConnection.Close();
+
+                    ResetЕmployeeData();
+                    ShowAllEmployee();
+
+                    MessageBox.Show("You successfully added an empoloyee!", "Successful addition.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+                catch (Exception Ex)
+                {
+                    MessageBox.Show(Ex.Message);
+                    this.databaseConnection.Close();
+                }
+            }
+        }
+
+        private void addTask_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void updateEmployee_Click(object sender, EventArgs e)
+        {
+            if (CheckEmployee() == true)
+            {
+                MessageBox.Show("Please, enter all necessary data!", "Failed to update an employee data.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
+                {
+                    this.databaseConnection.Open();
+
+                    string query = "UPDATE employee SET first_name = @first_name, last_name = @last_name, email = @email, phone_number = @phone_number, date_of_birth = @date_of_birth, monthly_salary = @monthly_salary WHERE employee_ID = @IDEmployee";
+                    cmd = new MySqlCommand(query, this.databaseConnection);
+                    cmd.Parameters.AddWithValue("@first_name", firstName.Text);
+                    cmd.Parameters.AddWithValue("@last_name", lastName.Text);
+                    cmd.Parameters.AddWithValue("@email", email.Text);
+                    cmd.Parameters.AddWithValue("@phone_number", phoneNumber.Text);
+                    cmd.Parameters.AddWithValue("@date_of_birth", dateTimePicker1.Value.Date);
+                    cmd.Parameters.AddWithValue("@monthly_salary", monthlySalary.Text);
+                    cmd.Parameters.AddWithValue("@IDEmployee", IDEmployee);
+
+                    cmd.ExecuteNonQuery();
+
+                    
+                    this.databaseConnection.Close();
+
+                    ResetЕmployeeData();
+                    ShowAllEmployee();
+
+                    MessageBox.Show("You successfully updated an empoloyee data!", "Successful update.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+                }
+                catch (Exception Ex)
+                {
+                    MessageBox.Show(Ex.Message);
+                    this.databaseConnection.Close();
+                }
+            }
+        }
+
+        private void updateTask_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
 }

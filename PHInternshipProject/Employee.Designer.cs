@@ -31,6 +31,7 @@ namespace PHInternshipProject
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -38,11 +39,10 @@ namespace PHInternshipProject
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cancelEmployee = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.deleteEmployee = new System.Windows.Forms.Button();
+            this.updateEmployee = new System.Windows.Forms.Button();
+            this.addEmployee = new System.Windows.Forms.Button();
             this.monthlySalary = new System.Windows.Forms.TextBox();
-            this.dateOfBirth = new System.Windows.Forms.TextBox();
             this.phoneNumber = new System.Windows.Forms.TextBox();
             this.email = new System.Windows.Forms.TextBox();
             this.lastName = new System.Windows.Forms.TextBox();
@@ -50,15 +50,15 @@ namespace PHInternshipProject
             this.label2 = new System.Windows.Forms.Label();
             this.employeeView = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.cancelTask = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.deleteTask = new System.Windows.Forms.Button();
+            this.updateTask = new System.Windows.Forms.Button();
+            this.addTask = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.dueDate = new System.Windows.Forms.TextBox();
             this.assignee = new System.Windows.Forms.TextBox();
             this.description = new System.Windows.Forms.TextBox();
             this.title = new System.Windows.Forms.TextBox();
@@ -83,6 +83,7 @@ namespace PHInternshipProject
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.dateTimePicker1);
             this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this.label7);
             this.tabPage1.Controls.Add(this.label6);
@@ -90,11 +91,10 @@ namespace PHInternshipProject
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.cancelEmployee);
-            this.tabPage1.Controls.Add(this.button3);
-            this.tabPage1.Controls.Add(this.button2);
-            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.deleteEmployee);
+            this.tabPage1.Controls.Add(this.updateEmployee);
+            this.tabPage1.Controls.Add(this.addEmployee);
             this.tabPage1.Controls.Add(this.monthlySalary);
-            this.tabPage1.Controls.Add(this.dateOfBirth);
             this.tabPage1.Controls.Add(this.phoneNumber);
             this.tabPage1.Controls.Add(this.email);
             this.tabPage1.Controls.Add(this.lastName);
@@ -109,11 +109,18 @@ namespace PHInternshipProject
             this.tabPage1.Text = "Employees";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(659, 368);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(250, 27);
+            this.dateTimePicker1.TabIndex = 20;
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(867, 345);
+            this.label8.Location = new System.Drawing.Point(926, 345);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(122, 20);
             this.label8.TabIndex = 19;
@@ -123,7 +130,7 @@ namespace PHInternshipProject
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(692, 345);
+            this.label7.Location = new System.Drawing.Point(728, 345);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(107, 20);
             this.label7.TabIndex = 18;
@@ -133,7 +140,7 @@ namespace PHInternshipProject
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(518, 345);
+            this.label6.Location = new System.Drawing.Point(505, 345);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(122, 20);
             this.label6.TabIndex = 17;
@@ -181,60 +188,55 @@ namespace PHInternshipProject
             this.cancelEmployee.UseVisualStyleBackColor = false;
             this.cancelEmployee.Click += new System.EventHandler(this.cancelEmployee_Click);
             // 
-            // button3
+            // deleteEmployee
             // 
-            this.button3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button3.Location = new System.Drawing.Point(529, 430);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(135, 35);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "Delete";
-            this.button3.UseVisualStyleBackColor = false;
+            this.deleteEmployee.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.deleteEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.deleteEmployee.Location = new System.Drawing.Point(529, 430);
+            this.deleteEmployee.Name = "deleteEmployee";
+            this.deleteEmployee.Size = new System.Drawing.Size(135, 35);
+            this.deleteEmployee.TabIndex = 12;
+            this.deleteEmployee.Text = "Delete";
+            this.deleteEmployee.UseVisualStyleBackColor = false;
+            this.deleteEmployee.Click += new System.EventHandler(this.deleteEmployee_Click);
             // 
-            // button2
+            // updateEmployee
             // 
-            this.button2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button2.Location = new System.Drawing.Point(315, 430);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(135, 35);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "Update";
-            this.button2.UseVisualStyleBackColor = false;
+            this.updateEmployee.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.updateEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.updateEmployee.Location = new System.Drawing.Point(315, 430);
+            this.updateEmployee.Name = "updateEmployee";
+            this.updateEmployee.Size = new System.Drawing.Size(135, 35);
+            this.updateEmployee.TabIndex = 11;
+            this.updateEmployee.Text = "Update";
+            this.updateEmployee.UseVisualStyleBackColor = false;
+            this.updateEmployee.Click += new System.EventHandler(this.updateEmployee_Click);
             // 
-            // button1
+            // addEmployee
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button1.Location = new System.Drawing.Point(98, 430);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(135, 35);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Add";
-            this.button1.UseVisualStyleBackColor = false;
+            this.addEmployee.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.addEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.addEmployee.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.addEmployee.Location = new System.Drawing.Point(98, 430);
+            this.addEmployee.Name = "addEmployee";
+            this.addEmployee.Size = new System.Drawing.Size(135, 35);
+            this.addEmployee.TabIndex = 10;
+            this.addEmployee.Text = "Add";
+            this.addEmployee.UseVisualStyleBackColor = false;
+            this.addEmployee.Click += new System.EventHandler(this.addEmployee_Click);
             // 
             // monthlySalary
             // 
             this.monthlySalary.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.monthlySalary.Location = new System.Drawing.Point(867, 368);
+            this.monthlySalary.Location = new System.Drawing.Point(926, 368);
             this.monthlySalary.Name = "monthlySalary";
             this.monthlySalary.Size = new System.Drawing.Size(135, 27);
             this.monthlySalary.TabIndex = 9;
             // 
-            // dateOfBirth
-            // 
-            this.dateOfBirth.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.dateOfBirth.Location = new System.Drawing.Point(692, 368);
-            this.dateOfBirth.Name = "dateOfBirth";
-            this.dateOfBirth.Size = new System.Drawing.Size(135, 27);
-            this.dateOfBirth.TabIndex = 8;
-            // 
             // phoneNumber
             // 
             this.phoneNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.phoneNumber.Location = new System.Drawing.Point(518, 368);
+            this.phoneNumber.Location = new System.Drawing.Point(505, 368);
             this.phoneNumber.Name = "phoneNumber";
             this.phoneNumber.Size = new System.Drawing.Size(135, 27);
             this.phoneNumber.TabIndex = 7;
@@ -286,19 +288,19 @@ namespace PHInternshipProject
             this.employeeView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.employeeView.Size = new System.Drawing.Size(1057, 209);
             this.employeeView.TabIndex = 2;
-            this.employeeView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.employeeView_CellContentClick);
+            this.employeeView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.employeeView_CellClick);
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.dateTimePicker2);
             this.tabPage2.Controls.Add(this.cancelTask);
-            this.tabPage2.Controls.Add(this.button7);
-            this.tabPage2.Controls.Add(this.button6);
-            this.tabPage2.Controls.Add(this.button5);
+            this.tabPage2.Controls.Add(this.deleteTask);
+            this.tabPage2.Controls.Add(this.updateTask);
+            this.tabPage2.Controls.Add(this.addTask);
             this.tabPage2.Controls.Add(this.label12);
             this.tabPage2.Controls.Add(this.label11);
             this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Controls.Add(this.dueDate);
             this.tabPage2.Controls.Add(this.assignee);
             this.tabPage2.Controls.Add(this.description);
             this.tabPage2.Controls.Add(this.title);
@@ -311,6 +313,13 @@ namespace PHInternshipProject
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Tasks";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Location = new System.Drawing.Point(518, 368);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(250, 27);
+            this.dateTimePicker2.TabIndex = 14;
             // 
             // cancelTask
             // 
@@ -325,47 +334,50 @@ namespace PHInternshipProject
             this.cancelTask.UseVisualStyleBackColor = false;
             this.cancelTask.Click += new System.EventHandler(this.cancelTask_Click);
             // 
-            // button7
+            // deleteTask
             // 
-            this.button7.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button7.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button7.Location = new System.Drawing.Point(529, 430);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(135, 35);
-            this.button7.TabIndex = 12;
-            this.button7.Text = "Delete";
-            this.button7.UseVisualStyleBackColor = false;
+            this.deleteTask.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.deleteTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.deleteTask.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.deleteTask.Location = new System.Drawing.Point(529, 430);
+            this.deleteTask.Name = "deleteTask";
+            this.deleteTask.Size = new System.Drawing.Size(135, 35);
+            this.deleteTask.TabIndex = 12;
+            this.deleteTask.Text = "Delete";
+            this.deleteTask.UseVisualStyleBackColor = false;
+            this.deleteTask.Click += new System.EventHandler(this.deleteTask_Click);
             // 
-            // button6
+            // updateTask
             // 
-            this.button6.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button6.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button6.Location = new System.Drawing.Point(315, 430);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(135, 35);
-            this.button6.TabIndex = 11;
-            this.button6.Text = "Update";
-            this.button6.UseVisualStyleBackColor = false;
+            this.updateTask.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.updateTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.updateTask.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.updateTask.Location = new System.Drawing.Point(315, 430);
+            this.updateTask.Name = "updateTask";
+            this.updateTask.Size = new System.Drawing.Size(135, 35);
+            this.updateTask.TabIndex = 11;
+            this.updateTask.Text = "Update";
+            this.updateTask.UseVisualStyleBackColor = false;
+            this.updateTask.Click += new System.EventHandler(this.updateTask_Click);
             // 
-            // button5
+            // addTask
             // 
-            this.button5.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button5.Location = new System.Drawing.Point(98, 430);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(135, 35);
-            this.button5.TabIndex = 10;
-            this.button5.Text = "Add";
-            this.button5.UseVisualStyleBackColor = false;
+            this.addTask.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.addTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.addTask.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.addTask.Location = new System.Drawing.Point(98, 430);
+            this.addTask.Name = "addTask";
+            this.addTask.Size = new System.Drawing.Size(135, 35);
+            this.addTask.TabIndex = 10;
+            this.addTask.Text = "Add";
+            this.addTask.UseVisualStyleBackColor = false;
+            this.addTask.Click += new System.EventHandler(this.addTask_Click);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label12.Location = new System.Drawing.Point(518, 345);
+            this.label12.Location = new System.Drawing.Point(605, 345);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(82, 20);
             this.label12.TabIndex = 9;
@@ -401,13 +413,6 @@ namespace PHInternshipProject
             this.label9.TabIndex = 6;
             this.label9.Text = "Title:";
             // 
-            // dueDate
-            // 
-            this.dueDate.Location = new System.Drawing.Point(518, 368);
-            this.dueDate.Name = "dueDate";
-            this.dueDate.Size = new System.Drawing.Size(135, 27);
-            this.dueDate.TabIndex = 5;
-            // 
             // assignee
             // 
             this.assignee.Location = new System.Drawing.Point(344, 368);
@@ -442,7 +447,7 @@ namespace PHInternshipProject
             this.taskView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.taskView.Size = new System.Drawing.Size(1057, 188);
             this.taskView.TabIndex = 1;
-            this.taskView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.taskView_CellContentClick);
+            this.taskView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.taskView_CellClick);
             // 
             // label1
             // 
@@ -491,27 +496,27 @@ namespace PHInternshipProject
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button cancelEmployee;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button deleteEmployee;
+        private System.Windows.Forms.Button updateEmployee;
+        private System.Windows.Forms.Button addEmployee;
         private System.Windows.Forms.TextBox monthlySalary;
-        private System.Windows.Forms.TextBox dateOfBirth;
         private System.Windows.Forms.TextBox phoneNumber;
         private System.Windows.Forms.TextBox email;
         private System.Windows.Forms.TextBox lastName;
         private System.Windows.Forms.TextBox firstName;
-        private System.Windows.Forms.TextBox dueDate;
         private System.Windows.Forms.TextBox assignee;
         private System.Windows.Forms.TextBox description;
         private System.Windows.Forms.TextBox title;
         private System.Windows.Forms.Button cancelTask;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button deleteTask;
+        private System.Windows.Forms.Button updateTask;
+        private System.Windows.Forms.Button addTask;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dateTimePicker2;
     }
 }
 
