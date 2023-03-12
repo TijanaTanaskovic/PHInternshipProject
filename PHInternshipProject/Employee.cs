@@ -178,8 +178,8 @@ namespace PHInternshipProject
                     else
                     {
                         this.databaseConnection.Open();
-
-                        string query = "DELETE FROM employee WHERE employee_ID = @IDEmployee";
+                        string query= " DELETE t1, t2 FROM employee t1 JOIN task t2 ON t1.employee_ID = t2.assignee WHERE t1.employee_ID = @IDEmployee";
+                        //string query = "DELETE FROM employee WHERE employee_ID = @IDEmployee";
                         cmd = new MySqlCommand(query, this.databaseConnection);
                         cmd.Parameters.AddWithValue("@IDEmployee", IDEmployee);
 
@@ -189,8 +189,9 @@ namespace PHInternshipProject
 
                         ResetЕmployeeData();
                         ShowAllEmployee();
-                        MessageBox.Show("Successful removal!");
+                        ShowAllTasks();
                         ShowTOPEmployee();
+                        MessageBox.Show("Successful removal!");
                     }
                 }
                 catch (Exception Ex)
