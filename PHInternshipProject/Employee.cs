@@ -20,7 +20,8 @@ namespace PHInternshipProject
             ShowAllEmployee();
             ShowAllTasks();
             ShowTOPEmployee();
-
+            ShowAllProjects();
+            ShowProjectsTasks();
         }
 
         static string MySQLConnectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=phinternship; SSL Mode = None";
@@ -46,7 +47,7 @@ namespace PHInternshipProject
             this.databaseConnection.Close();
         }
 
-        public void ShowAllTasks(string searchQuery = "SELECT * FROM task")
+        public void ShowAllTasks(string searchQuery = "SELECT task_ID, title, description, assignee, due_date, project_id FROM task WHERE 1=1")
         {
             this.databaseConnection.Open();
             da = new MySqlDataAdapter(searchQuery, databaseConnection);
@@ -81,6 +82,7 @@ namespace PHInternshipProject
             description.Text = "";
             assignee.Text = "";
             dateTimePicker2.Text = "";
+            projectID.Text = "";
         }
       
         private void Employee_Load(object sender, EventArgs e)
@@ -117,6 +119,7 @@ namespace PHInternshipProject
             description.Text = taskView.SelectedRows[0].Cells[2].Value.ToString();
             assignee.Text = taskView.SelectedRows[0].Cells[3].Value.ToString();
             dateTimePicker2.Text = taskView.SelectedRows[0].Cells[4].Value.ToString();
+            projectID.Text = taskView.SelectedRows[0].Cells[5].Value.ToString();
 
             if (title.Text == "")
             {
@@ -150,7 +153,8 @@ namespace PHInternshipProject
 
         bool CheckTask()
         {
-            if (title.Text == "" || description.Text == "" || assignee.Text == "" || dateTimePicker2.Text == "")
+            if (title.Text == "" || description.Text == "" || assignee.Text == "" || dateTimePicker2.Text == ""
+                || projectID.Text == "")
             {
                 return true;
             }
@@ -226,6 +230,7 @@ namespace PHInternshipProject
                         ResetTaskData();
                         ShowAllTasks();
                         ShowTOPEmployee();
+                        ShowProjectsTasks();
                         MessageBox.Show("Successful removal!");
 
                     }
@@ -292,13 +297,14 @@ namespace PHInternshipProject
                 {
                     this.databaseConnection.Open();
                     // cathching the data and inserting it into the database
-                    string query = "INSERT INTO task(title, description, assignee, due_date) VALUES (@title, @description, @assignee, @due_date)";
+                    string query = "INSERT INTO task(title, description, assignee, due_date, project_id) VALUES (@title, @description, @assignee, @due_date, @project_id)";
                     cmd = new MySqlCommand(query, this.databaseConnection);
 
                     cmd.Parameters.AddWithValue("@title", title.Text);
                     cmd.Parameters.AddWithValue("@description", description.Text);
                     cmd.Parameters.AddWithValue("@assignee", assignee.Text);
                     cmd.Parameters.AddWithValue("@due_date", dateTimePicker2.Value.Date);
+                    cmd.Parameters.AddWithValue("@project_id", projectID.Text);
 
                     cmd.ExecuteNonQuery();
 
@@ -308,6 +314,7 @@ namespace PHInternshipProject
                     ResetTaskData();
                     ShowAllTasks();
                     ShowTOPEmployee();
+                    ShowProjectsTasks();
 
                     MessageBox.Show("You successfully added task!", "Successful addition.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -375,13 +382,14 @@ namespace PHInternshipProject
                 {
                     this.databaseConnection.Open();
 
-                    string query = "UPDATE task SET title = @title, description = @description, assignee = @assignee, due_date = @due_date WHERE task_ID = @IDTask";
+                    string query = "UPDATE task SET title = @title, description = @description, assignee = @assignee, due_date = @due_date, project_id = @project_id WHERE task_ID = @IDTask";
                     cmd = new MySqlCommand(query, this.databaseConnection);
 
                     cmd.Parameters.AddWithValue("@title", title.Text);
                     cmd.Parameters.AddWithValue("@description", description.Text);
                     cmd.Parameters.AddWithValue("@assignee", assignee.Text);
                     cmd.Parameters.AddWithValue("@due_date", dateTimePicker2.Value.Date);
+                    cmd.Parameters.AddWithValue("@project_id", projectID.Text);
                     cmd.Parameters.AddWithValue("@IDTask", IDTask);
 
                     cmd.ExecuteNonQuery();
@@ -392,6 +400,7 @@ namespace PHInternshipProject
                     ResetTaskData();
                     ShowAllTasks();
                     ShowTOPEmployee();
+                    ShowProjectsTasks();
 
                     MessageBox.Show("You successfully updated task data!", "Successful update.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -418,5 +427,62 @@ namespace PHInternshipProject
             this.databaseConnection.Close();
         }
 
+        public void ShowAllProjects()
+        {
+            string searchQuery="SELECT projectID, project_name, project_description FROM project WHERE 1 = 1";
+            //search 
+            if (!(projectIDD.Text.Trim().Equals("")))
+            {
+                searchQuery += " AND projectID LIKE '%" + projectIDD.Text.Trim() + "%'";
+            }
+            if (!(projectName.Text.Trim().Equals("")))
+            {
+                searchQuery += " AND project_name LIKE '%" + projectName.Text.Trim() + "%'";
+            }
+            if (!(projectDescription.Text.Trim().Equals("")))
+            {
+                searchQuery += " AND project_description LIKE '%" + projectDescription.Text.Trim() + "%'";
+            }
+            this.databaseConnection.Open();
+            da = new MySqlDataAdapter(searchQuery, databaseConnection);
+            MySqlCommandBuilder Builder = new MySqlCommandBuilder(da);
+            var ds = new DataSet();
+            da.Fill(ds);
+            projectsView.DataSource = ds.Tables[0];
+            projectsView.AutoResizeColumns();
+            projectsView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            this.databaseConnection.Close();
+        }
+
+        public void ShowProjectsTasks(string searchQuery = "SELECT COUNT(project_id) as sum_of_tasks, projectID, project_name FROM project inner join task on project_id=projectID GROUP BY project_id")
+        {
+            this.databaseConnection.Open();
+            da = new MySqlDataAdapter(searchQuery, databaseConnection);
+            MySqlCommandBuilder Builder = new MySqlCommandBuilder(da);
+            var ds = new DataSet();
+            da.Fill(ds);
+            projectTaskView.DataSource = ds.Tables[0];
+            projectTaskView.AutoResizeColumns();
+            projectTaskView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            this.databaseConnection.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ShowAllProjects();
+        }
+
+        private void ResetSearch()
+        {
+            projectIDD.Text = "";
+            projectName.Text = "";
+            projectDescription.Text = "";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ResetSearch();
+            ShowAllProjects();
+        }
     }
 }
